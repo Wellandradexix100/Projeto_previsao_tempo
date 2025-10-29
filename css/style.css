@@ -2,6 +2,29 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background: linear-gradient(120deg, #6b737c 0%, #48505b 100%);
+  color: white;
+  transition: background 0.8s ease-out;
+}
+
+.weather-default {
+  background: linear-gradient(120deg, #6b737c 0%, #48505b 100%);
+}
+
+.weather-clear {
+  background: linear-gradient(120deg, #007bff 0%, #17d1ff 100%);
+}
+
+.weather-clouds {
+  background: linear-gradient(120deg, #8693a7 0%, #5d6c80 100%);
+}
+
+.weather-rain {
+  background: linear-gradient(120deg, #343a40 0%, #5f666d 100%);
 }
 
 main {
@@ -9,16 +32,20 @@ main {
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 100px);
+  padding: 2rem;
 }
 
 #nav-container {
   display: flex;
-  height: fit-content;
+  height: 100px;
   width: 100%;
   flex-direction: row;
   background-color: rgb(51, 61, 146);
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 10;
 }
 
 #logo {
@@ -29,6 +56,7 @@ main {
   font-size: 2rem;
   color: #17d1ff;
   font-weight: 700;
+  padding-left: 1rem;
 }
 
 #logo-img {
@@ -43,10 +71,17 @@ main {
 }
 
 #search-input {
-  border-radius: 30px;
+  border-radius: 30px 0 0 30px;
   text-align: center;
   width: 100%;
   height: 100%;
+  border: none;
+  padding: 0 1rem;
+  font-size: 1rem;
+}
+
+#search-input:focus {
+  outline: none;
 }
 
 #login button {
@@ -61,6 +96,8 @@ main {
   color: rgb(0, 0, 0);
   width: fit-content;
   transition: transform 0.2s ease;
+  border: none;
+  cursor: pointer;
 }
 
 #login button:hover {
@@ -69,22 +106,231 @@ main {
 }
 
 .btn-search {
-  font-size: 2rem;
-  color: white;
-  background: none;
+  font-size: 1.2rem;
+  color: rgb(51, 61, 146);
+  background: white;
   border: none;
   transition: transform 0.2s ease;
+  height: 100%;
+  padding: 0 1rem;
+  border-radius: 0 30px 30px 0;
+  cursor: pointer;
 }
 
 .btn-search:hover {
   color: #00ff00;
-  transform: scale(1.1);
+  background-color: #fdfdfd;
+}
+
+#previsao-tempo {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+  padding: 2rem;
+  width: 100%;
+  max-width: 450px;
+  color: #ffffff;
+
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+
+  display: none;
+}
+
+#previsao-tempo:has(#cidade-nome:not(:empty)) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#cidade-nome {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #ffeea8;
+}
+
+#descricao-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  order: 2;
+}
+
+#clima-icone {
+  width: 60px;
+  height: 60px;
+  text-shadow: none;
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.2));
+}
+
+#cidade-descricao {
+  font-size: 1.25rem;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+#temp-container {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.temp-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#cidade-temp {
+  font-size: 4.5rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1;
+  padding: 0;
+}
+
+#info-extras {
+  order: 3;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.info-item i {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.info-item span {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.info-item #umidade-label,
+.info-item #vento-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  margin-top: -5px;
+}
+
+.info-item #umidade {
+  color: #89cff0;
+}
+
+.info-item #vento {
+  color: #c1e1c1;
+}
+
+#previsao-por-hora {
+  order: 4;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  display: block;
+}
+
+.hourly-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  display: block;
+  text-align: left;
+}
+
+#hourly-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 1rem;
+}
+
+.hora-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 70px;
+}
+
+.hora-card-time {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.hora-card-icon {
+  width: 45px;
+  height: 45px;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+  text-shadow: none;
+}
+
+.hora-card-temp {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+#hourly-list::-webkit-scrollbar {
+  height: 8px;
+}
+
+#hourly-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+#hourly-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+}
+
+#hourly-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
 }
 
 @media (max-width: 768px) {
+  main {
+    min-height: calc(100vh - 228px);
+    padding: 1rem;
+  }
+
   #nav-container {
     flex-direction: column;
     align-items: center;
+    padding-bottom: 1rem;
+    height: auto;
   }
 
   #search {
@@ -95,9 +341,41 @@ main {
 
   #logo {
     font-size: 1.5rem;
+    padding-left: 0;
+    width: 100%;
+    justify-content: center;
   }
 
   #login button {
-    display: none;
+    display: block;
+    margin: 0;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  #previsao-tempo {
+    padding: 1.5rem;
+  }
+
+  #cidade-nome {
+    font-size: 1.75rem;
+  }
+  #cidade-temp {
+    font-size: 3.5rem;
+  }
+  #cidade-descricao {
+    font-size: 1rem;
+  }
+  #clima-icone {
+    width: 45px;
+    height: 45px;
+  }
+
+  #info-extras {
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+  .info-item span {
+    font-size: 1.1rem;
   }
 }

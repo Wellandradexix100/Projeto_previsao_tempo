@@ -23,7 +23,7 @@
             id="search-input"
             placeholder="Digite o nome da sua cidade"
           />
-          <button class="btn-search">
+          <button class="btn-search" onclick="buscarClima()">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
         </div>
@@ -38,10 +38,35 @@
     </header>
     <main>
       <div id="previsao-tempo">
-        <h2 id="local">Aqui será alimentada via api</h2>
-        <p id="resultado">
-          <!--Exemplo do que vai ser carregado-->
-        </p>
+        <h3 id="cidade-nome"></h3>
+
+        <div id="descricao-container">
+          <img id="clima-icone" src="" alt="Ícone do Clima" />
+          <p id="cidade-descricao"></p>
+        </div>
+
+        <div id="temp-container">
+          <span class="temp-label">Temperatura</span>
+          <p id="cidade-temp"></p>
+        </div>
+
+        <div id="info-extras">
+          <div class="info-item">
+            <i class="fa-solid fa-droplet"></i>
+            <span id="umidade-label">Umidade</span>
+            <span id="umidade"></span>
+          </div>
+          <div class="info-item">
+            <i class="fa-solid fa-wind"></i>
+            <span id="vento-label">Vento</span>
+            <span id="vento"></span>
+          </div>
+        </div>
+        <div id="previsao-por-hora">
+          <span class="hourly-title">Previsão para as próximas horas</span>
+
+          <div id="hourly-list"></div>
+        </div>
       </div>
     </main>
     <script src="./script/main.js"></script>
